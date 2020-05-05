@@ -1,0 +1,31 @@
+p.Nav {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    -webkit-transition: height 0.2s ease-in-out;
+    transition: height 0.2s ease-in-out;
+    height: 75px;
+
+  }
+  .Nav-menus {
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    width: 70%;
+    margin: 0 auto;
+    padding: 25px 40px;
+
+  }
+  .Nav-brand-logo {
+    display: block;
+    background-position: -175px 0px;
+    background-image: url(../../pixa.png);
+    background-size: 405px 375px;
+    background-repeat: no-repeat;
+    height: 35px;
+    width: 175px;
+    text-indent: -1000%
+  }
