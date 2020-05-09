@@ -95,18 +95,14 @@ let postslist = {
 
 // The root provides a resolver function for each API endpoint
 let root = {
-
   user: function({ id }) {
     return userslist[id];
   },
-
   post: function({ user_id, post_id }) {
     return postslist[user_id][post_id];
   },
-
   posts: function({ user_id }) {
     return Object.values(postslist[user_id]);
-
   }
 };
 
@@ -119,7 +115,7 @@ let pusher = new Pusher({
   encrypted: true
 });
 
-// Create express app
+// create express app
 let app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -135,15 +131,26 @@ app.use(
   })
 );
 
+// trigger add a new post 
+app.post('/newpost', multipartMiddleware, (req,res) => {
+  // create a sample post
+  let post = {
+    user : {
+      nickname : req.body.name,
+      avatar : req.body.avatar
+    },
+    image : req.body.image,
+    caption : req.body.caption
+  }
+  
+  // trigger pusher event 
+  pusher.trigger("posts-channel", "new-post", { 
+    post 
+  });
 
-// trigger pusher event 
-pusher.trigger("posts-channel", "new-post", { 
-  post 
+  return res.json({status : "Post created"});
 });
 
-return res.json({status : "Post created"});
-});
 
-    
-    // Set application port
-    app.listen(4000);
+app.listen(4000);
+console.log("Running a GraphQL API server at localhost:4000/graphql");
